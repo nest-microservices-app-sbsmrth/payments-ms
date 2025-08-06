@@ -6,7 +6,9 @@ import { envs } from './config';
 async function bootstrap() {
   const logger = new Logger('PaymentsMS');
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true, // Needed for Stripe webhooks
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
