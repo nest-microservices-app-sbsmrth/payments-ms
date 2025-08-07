@@ -3,6 +3,7 @@ import * as joi from 'joi';
 
 interface EnvVars {
   PORT: number;
+  NATS_SERVERS: string[];
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
   STRIPE_SUCCESS_URL: string;
@@ -16,10 +17,14 @@ const envsSchema = joi
     STRIPE_WEBHOOK_SECRET: joi.string().required(),
     STRIPE_SUCCESS_URL: joi.string().uri().required(),
     STRIPE_CANCEL_URL: joi.string().uri().required(),
+    NATS_SERVERS: joi.array().items(joi.string().uri()).required(),
   })
   .unknown(true); // Allow unknown properties
 
-const { error, value } = envsSchema.validate(process.env) as {
+const { error, value } = envsSchema.validate({
+  ...process.env,
+  NATS_SERVERS: process.env.NATS_SERVERS?.split(','),
+}) as {
   error: joi.ValidationError;
   value: EnvVars;
 };
@@ -32,6 +37,7 @@ const envVars: EnvVars = value;
 
 export const envs = {
   port: envVars.PORT,
+  natsServers: envVars.NATS_SERVERS,
   stripe: {
     secretKey: envVars.STRIPE_SECRET_KEY,
     webhookSecret: envVars.STRIPE_WEBHOOK_SECRET,
