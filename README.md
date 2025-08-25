@@ -23,7 +23,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Payments microservice built with [NestJS](https://nestjs.com/).
 
 ## Project setup
 
