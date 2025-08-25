@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     dockerImage = docker.build(
-                        "sbsmrth/payments-ms-app:${env.BUILD_NUMBER}", 
+                        "sbsmrth/payments-ms-app:latest", 
                         "-f Dockerfile.prod ."
                     )
                 }
