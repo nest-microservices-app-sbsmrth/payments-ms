@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
-                echo 'Pushing image to Dockerhub...'
+                echo 'Pushing image to Dockerhub..'
             }
         }
     }
