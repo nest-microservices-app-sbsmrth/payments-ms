@@ -3,17 +3,24 @@ pipeline {
     stages {
         stage('Checkout Github') {
             steps {
-                git branch: 'main', credentialsId: 'webhook', url: 'https://github.com/nest-microservices-app-sbsmrth/payments-ms.git'
+                git branch: 'main', 
+                credentialsId: 'webhook', 
+                url: 'https://github.com/nest-microservices-app-sbsmrth/payments-ms.git'
             }
         }
-        stage('Build') {
+        stage('Docker Build') {
             steps {
-                echo 'Building...'
+                script {
+                    dockerImage = docker.build(
+                        "your-org/your-app:${env.BUILD_NUMBER}", 
+                        "-f Dockerfile.prod ."
+                    )
+                }
             }
         }
-        stage('Deploy') {
+        stage('Docker Push') {
             steps {
-                echo 'Deploying...'
+                echo 'Pushing to docker...'
             }
         }
     }
