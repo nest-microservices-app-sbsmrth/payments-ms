@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
-                echo 'Pushing to docker...'
+                echo 'Pushing to Dockerhub...'
             }
         }
     }
