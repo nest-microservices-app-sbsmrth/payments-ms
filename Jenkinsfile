@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS_ID = credentials('dockerhub-access')
+        DOCKER_HUB_CREDENTIALS_ID = 'dockerhub-access'
         DOCKER_HUB_REPO = 'sbsmrth/orders-nest-app'
     }
     stages {
@@ -9,8 +9,8 @@ pipeline {
             steps {
                 script {
                     dockerImage = docker.build(
-                        '$DOCKER_HUB_REPO:latest', 
-                        '-f Dockerfile.prod .'
+                        "${DOCKER_HUB_REPO}:latest", 
+                        "-f Dockerfile.prod ."
                     )
                 }
             }
@@ -18,8 +18,8 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', '$DOCKER_HUB_CREDENTIALS_ID') {
-                        dockerImage.push('latest')
+                    docker.withRegistry("https://registry.hub.docker.com", "${DOCKER_HUB_CREDENTIALS_ID}") {
+                        dockerImage.push("latest")
                     }
                 }
             }
