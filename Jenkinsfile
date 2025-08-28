@@ -1,13 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout Github') {
-            steps {
-                git branch: 'main', 
-                credentialsId: 'webhook', 
-                url: 'https://github.com/nest-microservices-app-sbsmrth/payments-ms.git'
-            }
-        }
         stage('Docker Build') {
             steps {
                 script {
