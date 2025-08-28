@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     dockerImage = docker.build(
-                        '${DOCKER_HUB_REPO}:latest', 
+                        '$DOCKER_HUB_REPO:latest', 
                         '-f Dockerfile.prod .'
                     )
                 }
@@ -18,7 +18,7 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', '${DOCKER_HUB_CREDENTIALS_ID}') {
+                    docker.withRegistry('https://registry.hub.docker.com', '$DOCKER_HUB_CREDENTIALS_ID') {
                         dockerImage.push('latest')
                     }
                 }
