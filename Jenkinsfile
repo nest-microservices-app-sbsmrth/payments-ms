@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_CREDENTIALS_ID = 'dockerhub-access'
-        DOCKER_HUB_REPO = 'sbsmrth/orders-nest-app'
+        DOCKER_HUB_REPO = 'sbsmrth/products-app-payments-ms'
     }
     stages {
         stage('Docker Build') {
